@@ -14,25 +14,21 @@ Deze regels gelden voor elke sessie die aan Gymmaat werkt.
 
 ## Product
 - De app is algemeen, niet persoonlijk: geen namen of gegevens van Vlad of Chloe in code of voorbeelden. Gebruik demodata (Noor).
-- Geen AI-look: geen sparkle-badges, geen decoratieve emoji, geen paarse gradients.
 - Alleen correcte gezondheidsinformatie. Lichaamsgewicht wordt nooit beloond. Ziek melden gebeurt per training. Bij de volgende training meldt de gebruiker opnieuw als hij nog ziek is.
 - Streak en badges tellen alleen afgeronde trainingen waarin minstens één set gedaan is.
 
 ## Design
-- Kleuren alleen via CSS-variabelen uit `src/index.css`. Er zijn drie thema's (blauw = standaard, roze, grijs), elk met lichte en donkere modus.
-- Tailwind-opacity op var-kleuren werkt niet: gebruik `color-mix` of `style={{opacity}}`.
-- Lettertypes: Barlow Condensed (display) en Instrument Sans (tekst).
-- Invoervelden zijn minstens 16px. Er wordt niet gezoomd in de app.
-- Sheets renderen via portal (z-60), boven de navigatie.
-- Terugvegen werkt overal. De terugpijl blijft staan.
+- Volg de regels van de skill `ui-ux-pro-max` (`.claude/skills/ui-ux-pro-max/`): stijl, kleurpaletten, lettertypes, UX-regels en de checklist. De skill bepaalt het design.
 
 ## Werkwijze bij elke wijziging
 1. `npm test`: dit bouwt de app en draait alle suites in `tests/`. Alles moet slagen. Contrast moet 0 problemen geven in alle thema's.
-2. Bij UI-werk: gebruik de skill `ui-ux-pro-max` uit `.claude/skills/ui-ux-pro-max/` (stijlen, paletten, lettertypes, UX-regels). Niet `anthropic-skills:ui-ux-pro-max`. De regels hierboven gaan altijd voor.
+2. Bij UI-werk: gebruik de skill `ui-ux-pro-max` uit `.claude/skills/ui-ux-pro-max/` en volg haar regels. Niet `anthropic-skills:ui-ux-pro-max`.
 3. Database-wijzigingen staan in `server/`. Test ze eerst lokaal op Postgres (`server/test_gm2.sql`) en pas ze pas na "ready" toe op Supabase.
 4. Commit per afgeronde wijziging, met een korte Nederlandse boodschap.
 
 ## Techniek
+- Kleurtokens en thema's staan in `src/index.css`. Tailwind-opacity op var-kleuren werkt niet: gebruik `color-mix` of `style={{opacity}}`.
+- Sheets renderen via portal (z-60), boven de navigatie.
 - React 19, TypeScript, Vite, Tailwind en lucide-react. `npm run build` maakt `dist/` voor Netlify.
 - Backend: schema `gm2` (zie `server/gm2_schema.sql`). Supabase-project `tpmiwgyvqbhwlxfkahev` (eu-central-1).
 - Voorbeeld-artifact: https://claude.ai/artifact/BDqPCMECM9n3WZ2ifZ9Qwe

@@ -25,7 +25,7 @@ export function Medal({ s, size = 64 }: { s: BadgeState; size?: number }) {
 }
 const label = (s: BadgeState) => s.b.secret && !s.level ? "Geheime badge" : s.b.stepNames && s.level ? s.b.stepNames[s.level - 1] : s.b.name;
 const left = (s: BadgeState) => s.b.id === "schijven" ? `nog ${fmt(s.next! - s.v)} kg` : `nog ${s.b.unit(Math.round((s.next! - s.v) * 10) / 10)}`;
-const sub = (s: BadgeState) => s.b.secret && !s.level ? "Nog niet ontdekt" : s.next === null ? "Hoogste level" : s.level ? `level ${LEVELS[s.level - 1].n}, ${left(s)}` : left(s);
+const sub = (s: BadgeState) => s.b.secret && !s.level ? "Nog niet ontdekt" : s.next === null ? "Hoogste level" : s.level ? `level ${LEVELS[s.level - 1].n} · ${left(s)}` : left(s);
 
 export function BadgeSheet({ s, onClose }: { s: BadgeState | null; onClose: () => void }) {
   if (!s) return null; const hidden = s.b.secret && !s.level;
@@ -46,7 +46,7 @@ export function BadgeRow() {
   if (!d) return null;
   const st = badgeStates(d, d.me), got = st.filter(s => s.level).sort((a, b) => b.level - a.level), soon = st.filter(s => !s.level && !s.b.secret).sort((a, b) => b.progress - a.progress), secret = st.filter(s => !s.level && s.b.secret).slice(0, 2);
   return <section aria-label="Badges">
-    <div className="flex items-baseline justify-between mb-2"><h2 className="text-[15px] font-semibold">Badges</h2><button className="text-[13px] font-semibold text-accent h-11 -my-3" onClick={() => setPage("badges")}>Alle {st.filter(s => s.level).length}/{st.length}</button></div>
+    <div className="flex items-baseline justify-between mb-2"><h2 className="label">Badges</h2><button className="text-[13px] font-semibold text-accent h-11 -my-3" onClick={() => setPage("badges")}>Alle {st.filter(s => s.level).length}/{st.length}</button></div>
     <div className="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pb-1 snap-x" style={{ scrollPaddingLeft: 16 }}>
       {[...got, ...soon, ...secret].map(s => <button key={s.b.id} onClick={() => setOpen(s)} className="snap-start shrink-0 w-[84px] grid justify-items-center gap-1.5 text-center" aria-label={`${label(s)}, ${sub(s)}`}>
         <Medal s={s} size={60} /><span className="text-[12px] font-semibold leading-tight line-clamp-2">{label(s)}</span><span className="text-[11px] text-mute leading-tight">{sub(s)}</span></button>)}

@@ -18,11 +18,12 @@ Deze regels gelden voor elke sessie die aan Gymmaat werkt.
 - Streak en badges tellen alleen afgeronde trainingen waarin minstens één set gedaan is.
 
 ## Design
-- Volg de regels van de skill `ui-ux-pro-max` (`.claude/skills/ui-ux-pro-max/`): stijl, kleurpaletten, lettertypes, UX-regels en de checklist. De skill bepaalt het design.
+- Stijl en uitstraling: skill `frontend-design` (`.claude/skills/frontend-design/`). Die bepaalt kleuren, lettertypes, lay-out en tekst, met eerst een plan en dan pas bouwen.
+- Praktische UX-regels en checklist: skill `ui-ux-pro-max` (`.claude/skills/ui-ux-pro-max/`): contrast, aanraakgebieden, toegankelijkheid, animatie, prestaties. Gebruik haar stijlcatalogus niet om de stijl te kiezen.
 
 ## Werkwijze bij elke wijziging
 1. `npm test`: dit bouwt de app en draait alle suites in `tests/`. Alles moet slagen. Contrast moet 0 problemen geven in alle thema's.
-2. Bij UI-werk: gebruik de skill `ui-ux-pro-max` uit `.claude/skills/ui-ux-pro-max/` en volg haar regels. Niet `anthropic-skills:ui-ux-pro-max`.
+2. Bij UI-werk: `frontend-design` voor de stijl, daarna de checklist van `ui-ux-pro-max` (beide uit `.claude/skills/`). Niet `anthropic-skills:ui-ux-pro-max`.
 3. Database-wijzigingen staan in `server/`. Test ze eerst lokaal op Postgres (`server/test_gm2.sql`) en pas ze pas na "ready" toe op Supabase.
 4. Commit per afgeronde wijziging, met een korte Nederlandse boodschap.
 

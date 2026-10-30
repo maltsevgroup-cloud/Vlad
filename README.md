@@ -28,6 +28,6 @@ npm run dev                       # app op http://localhost:5173, ook bereikbaar
 ## Met Claude Code
 1. Zet deze map in een privé-GitHub-repo.
 2. Open de map in Claude Code. `CLAUDE.md` wordt dan automatisch gelezen.
-3. Optioneel: installeer de UI/UX Pro Max-skill met `npx skills add` (zie de pagina van de skill).
+3. De UI/UX Pro Max-skill staat al in `.claude/skills/ui-ux-pro-max/` en wordt automatisch geladen.
 
 Er gaat niets live (Supabase of Netlify) zonder uitdrukkelijk "ready".

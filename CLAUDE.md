@@ -28,7 +28,7 @@ Deze regels gelden voor elke sessie die aan Gymmaat werkt.
 
 ## Werkwijze bij elke wijziging
 1. `npm test`: dit bouwt de app en draait alle suites in `tests/`. Alles moet slagen. Contrast moet 0 problemen geven in alle thema's.
-2. Bij UI-werk: volg de skill ui-ux-pro-max (checklist), maar de regels hierboven gaan voor.
+2. Bij UI-werk: gebruik de skill `ui-ux-pro-max` uit `.claude/skills/ui-ux-pro-max/` (stijlen, paletten, lettertypes, UX-regels). Niet `anthropic-skills:ui-ux-pro-max`. De regels hierboven gaan altijd voor.
 3. Database-wijzigingen staan in `server/`. Test ze eerst lokaal op Postgres (`server/test_gm2.sql`) en pas ze pas na "ready" toe op Supabase.
 4. Commit per afgeronde wijziging, met een korte Nederlandse boodschap.
 

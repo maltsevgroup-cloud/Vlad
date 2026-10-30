@@ -1,0 +1,17 @@
+import type { DayKey } from "./types";
+import { DAYS } from "./types";
+export const pad = (n: number) => String(n).padStart(2, "0");
+export const dstr = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+export const pdate = (s: string) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+export const today = () => dstr(new Date());
+export const addDays = (s: string, n: number) => { const d = pdate(s); d.setDate(d.getDate() + n); return dstr(d); };
+export const dayKeyOf = (s: string): DayKey => DAYS[(pdate(s).getDay() + 6) % 7];
+export const mondayOf = (s: string) => addDays(s, -DAYS.indexOf(dayKeyOf(s)));
+const MAAND = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+const MAAND_LANG = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
+export const dshort = (s: string) => { const d = pdate(s); return `${d.getDate()} ${MAAND[d.getMonth()]}`; };
+export const dlong = (s: string) => { const d = pdate(s); return `${d.getDate()} ${MAAND_LANG[d.getMonth()]}`; };
+export const monthName = (m: number) => MAAND_LANG[m];
+export const hm = (t: number) => { const d = new Date(t); return `${pad(d.getHours())}:${pad(d.getMinutes())}`; };
+export const mmss = (sec: number) => { sec = Math.max(0, Math.round(sec)); return `${Math.floor(sec / 60)}:${pad(sec % 60)}`; };
+export const nextDateOf = (k: DayKey, from = today()) => { for (let i = 0; i < 7; i++) { const d = addDays(from, i); if (dayKeyOf(d) === k) return d; } return from; };

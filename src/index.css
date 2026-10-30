@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gymmaat: koel logboekpapier, inkt, en de kleuren van wedstrijdschijven als datakleuren.
+   Layout: één kolom (max 480px), vaste navigatie onderaan, training als volledig scherm. */
+:root {
+  --bg: #F3F4F7;        /* koel papier */
+  --surface: #FFFFFF;
+  --sunk: #E8EAF0;
+  --ink: #141821;
+  --mute: #5D6474;
+  --line: #D9DCE4;
+  --accent: #1F4BD1;    /* blauwe 20 kg-schijf */
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E3E9FB;
+  --mate: #D63A2F;      /* rode 25 kg-schijf: kleur van je maat */
+  --mate-soft: #FBE6E4;
+  --good: #17783F; --good-ink: #FFFFFF;
+  --good-soft: #E1F3E8;
+  --warn: #9A5B00;
+  --chart-me: #1F4BD1; --chart-mate: #D63A2F; --grid: #E4E6EC;
+  --plate-25: #D63A2F; --plate-20: #1F4BD1; --plate-15: #E7B416; --plate-10: #2E9B4F; --plate-5: #F2F2F2; --plate-s: #9AA1AE;
+  --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1117; --surface: #171B23; --sunk: #1F2430; --ink: #ECEEF3; --mute: #9AA1B2; --line: #2A303D;
+    --accent: #6E8FFF; --accent-ink: #0B1020; --accent-soft: #1C2647; --mate: #FF7A6E; --mate-soft: #3A1E1C;
+    --good: #4CC981; --good-ink: #0E1117; --good-soft: #17301F; --warn: #F2A93B; --plate-5: #D9DCE4; --chart-me: #5A7DF5; --chart-mate: #EE5F55; --grid: #252B37; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1117; --surface: #171B23; --sunk: #1F2430; --ink: #ECEEF3; --mute: #9AA1B2; --line: #2A303D;
+  --accent: #6E8FFF; --accent-ink: #0B1020; --accent-soft: #1C2647; --mate: #FF7A6E; --mate-soft: #3A1E1C;
+  --good: #4CC981; --good-ink: #0E1117; --good-soft: #17301F; --warn: #F2A93B; --plate-5: #D9DCE4; --chart-me: #5A7DF5; --chart-mate: #EE5F55; --grid: #252B37; color-scheme: dark;
+}
+
+/* thema's: elk thema heeft eigen neutrale tinten en accent, in licht en donker (contrast nagemeten) */
+:root[data-accent="roze"] { --bg: #f8f3f4; --surface: #ffffff; --sunk: #f1e6e9; --line: #e6d6db; --grid: #efe4e7; --ink: #23171b; --mute: #6e5a61; --accent: #b8325e; --accent-ink: #ffffff; --accent-soft: #f8e1e8; }
+:root[data-accent="grijs"] { --bg: #f4f4f5; --surface: #ffffff; --sunk: #e9e9eb; --line: #dcdcdf; --grid: #ececee; --ink: #18181b; --mute: #5f6068; --accent: #27272a; --accent-ink: #ffffff; --accent-soft: #e4e4e7; }
+@media (prefers-color-scheme: dark) {
+  :root[data-accent="roze"]:not([data-theme="light"]) { --bg: #140f11; --surface: #1e171a; --sunk: #2a2024; --line: #3a2d32; --grid: #2a2024; --ink: #f3eaed; --mute: #b7a3aa; --accent: #f29bb7; --accent-ink: #2a0a17; --accent-soft: #3b1e28; }
+  :root[data-accent="grijs"]:not([data-theme="light"]) { --bg: #0f0f10; --surface: #19191b; --sunk: #232326; --line: #2e2e32; --grid: #232326; --ink: #ededef; --mute: #a1a1aa; --accent: #e4e4e7; --accent-ink: #18181b; --accent-soft: #2a2a2e; }
+}
+:root[data-accent="roze"][data-theme="dark"] { --bg: #140f11; --surface: #1e171a; --sunk: #2a2024; --line: #3a2d32; --grid: #2a2024; --ink: #f3eaed; --mute: #b7a3aa; --accent: #f29bb7; --accent-ink: #2a0a17; --accent-soft: #3b1e28; }
+:root[data-accent="grijs"][data-theme="dark"] { --bg: #0f0f10; --surface: #19191b; --sunk: #232326; --line: #2e2e32; --grid: #232326; --ink: #ededef; --mute: #a1a1aa; --accent: #e4e4e7; --accent-ink: #18181b; --accent-soft: #2a2a2e; }
+
+html, body, #root { height: 100%; }
+/* geen zoom: dubbeltikken zoomt niet in, invoervelden zijn minstens 16px (anders zoomt iPhone in), niets breder dan het scherm */
+html { touch-action: manipulation; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { overflow-x: hidden; overscroll-behavior-x: none; }
+input, textarea, select { font-size: max(16px, 1em); }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--bg); }
+.display { font-family: var(--font-display); letter-spacing: .01em; }
+.num { font-variant-numeric: tabular-nums; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--mute); }
+h1, h2, h3 { text-wrap: balance; }
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }
+@keyframes sheet-in { from { transform: translateY(24px); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes fade-in { from { opacity: 0 } to { opacity: 1 } }
+.anim-sheet { animation: sheet-in .22s cubic-bezier(.2,.8,.2,1); }
+.anim-fade { animation: fade-in .18s ease-out; }
+@keyframes page-in { from { transform: translateX(32px); opacity: 0 } to { transform: none; opacity: 1 } }
+@keyframes pop-in { 0% { transform: scale(.6); opacity: 0 } 70% { transform: scale(1.08); opacity: 1 } 100% { transform: scale(1) } }
+.pop-in { animation: pop-in .45s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes confetti-fall { from { translate: 0 -14px; opacity: 0 } to { translate: 0 0; opacity: 1 } }
+.confetti { animation: confetti-fall .6s ease-out both; }
+@keyframes head-bump { 0%,100% { transform: scale(1) } 30% { transform: scale(1.15) } 60% { transform: scale(.95) } }
+.anim-page { animation: page-in .22s cubic-bezier(.2,.8,.2,1); }
+@media (prefers-reduced-motion: reduce) { .anim-sheet, .anim-fade, .anim-page, .pop-in, .confetti { animation: none; } * { transition: none !important; } }
+/* schermen zijn één kolom: nooit breder dan de telefoon, ook niet door lange invoervelden */
+main > div.grid, .grid-1 { grid-template-columns: minmax(0, 1fr); }
+input, select, textarea { min-width: 0; }

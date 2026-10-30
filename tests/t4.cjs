@@ -5,7 +5,7 @@ const srv=require('./serve.cjs')(8981);
   await p.goto('http://localhost:8981/'); await p.waitForTimeout(800); const tg=sc[0];
   await p.screenshot({path:`h_${tg}_1.png`,fullPage:true});
   if(sc==='light'){
-   for(const t of ['Streak','Deze week','Gewicht','Records','Badges']) T(await p.locator(`button:has(.label:text-is("${t}"))`).count()===1,`tegel ${t}`);
+   for(const t of ['Streak','Deze week','Gewicht','Records']) T(await p.locator(`button:has(.label:text-is("${t}"))`).count()===1,`tegel ${t}`);
    T(await p.locator('section[aria-label=Badges] button').count()>5,'badgesrij met badges ('+await p.locator('section[aria-label=Badges] button').count()+')');
    const sw=await p.evaluate(()=>{const e=document.querySelector('section[aria-label=Badges] .overflow-x-auto');return e.scrollWidth>e.clientWidth}); T(sw,'badgesrij scrolt zijwaarts');
    // dag aantikken: een afgelopen dag met training
@@ -26,7 +26,7 @@ const srv=require('./serve.cjs')(8981);
    await p.click('button:has(.label:text-is("Streak"))'); await p.click('button:has-text("Toch niet ziek")'); await p.waitForTimeout(200); T(await p.locator('text=Ziek gemeld, blijft staan').count()===0,'ziekmelding ingetrokken');
    // badge
    await p.locator('section[aria-label=Badges] button').nth(1).click(); await p.waitForTimeout(200); T(await p.locator('[role=dialog] ol[aria-label=Levels] li').count()===4,'badge toont 4 levels'); await p.screenshot({path:'h_l_5_badge.png'}); await p.keyboard.press('Escape');
-   await p.click('button:has(.label:text-is("Badges"))'); await p.waitForTimeout(300); T(await p.locator('[role=region][aria-label=Badges]').count()===1,'badgepagina'); await p.screenshot({path:'h_l_6_badges.png',fullPage:false});
+   await p.click('section[aria-label=Badges] button:has-text("Alle")'); await p.waitForTimeout(300); T(await p.locator('[role=region][aria-label=Badges]').count()===1,'badgepagina'); await p.screenshot({path:'h_l_6_badges.png',fullPage:false});
    T(await p.locator('text=Geheime badge').count()>=1,'geheime badges als vraagteken');
    // terugvegen
    await p.evaluate(()=>{const mk=(t,x)=>new TouchEvent(t,{bubbles:true,touches:t==='touchend'?[]:[new Touch({identifier:2,target:document.body,clientX:x,clientY:400})],changedTouches:[new Touch({identifier:2,target:document.body,clientX:x,clientY:400})]});window.dispatchEvent(mk('touchstart',8));window.dispatchEvent(mk('touchend',160));});

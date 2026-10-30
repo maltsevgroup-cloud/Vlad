@@ -27,7 +27,7 @@ function Shell() {
   if (!auth) body = <Login />;
   else if (!data) body = <Onboarding />;
   else body = <>
-    <main inert={!!workout || !!page} className="max-w-[480px] mx-auto gutter" style={{ paddingTop: 8, paddingBottom: nav === "lijn" ? "calc(64px + env(safe-area-inset-bottom, 0px))" : "calc(96px + env(safe-area-inset-bottom, 0px))" }}>
+    <main inert={!!workout || !!page} className="max-w-[480px] mx-auto gutter" style={{ paddingTop: 8, paddingBottom: `calc(${(nav === "lijn" ? 64 : 96) + (data.mate ? 76 : 0)}px + env(safe-area-inset-bottom, 0px))` }}>
       {tab === "vandaag" && <Home />}{tab === "schema" && <PlanView />}{tab === "samen" && <Together />}{tab === "profiel" && <SettingsHome />}
     </main>
     {page?.startsWith("voortgang") && <Progress initial={page === "voortgang:gewicht" ? "gewicht" : page === "voortgang:records" ? "records" : "kracht"} />}
@@ -37,11 +37,11 @@ function Shell() {
     <nav inert={!!workout} className="fixed bottom-0 inset-x-0 z-[38] bg-surface border-t border-line" style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)", paddingLeft: "env(safe-area-inset-left, 0px)", paddingRight: "env(safe-area-inset-right, 0px)" }} aria-label="Hoofdmenu">
       <div className="max-w-[480px] mx-auto grid grid-cols-5">{[TABS[0], TABS[1], null, TABS[2], TABS[3]].map(x => {
         if (!x) { const live = data.live[data.me], nt = nextTraining(data, data.me);
-          return <div key="train" className="relative grid place-items-center"><button onClick={() => { const run = live && data.sessions[live.sessionId] && !data.sessions[live.sessionId].finishedAt ? live.sessionId : null;
+          return <div key="train" className="relative h-16 grid place-items-center content-center gap-1"><button onClick={() => { const run = live && data.sessions[live.sessionId] && !data.sessions[live.sessionId].finishedAt ? live.sessionId : null;
               if (run) { openWorkout(run); return; } if (!nt) { setPage(null); setTab("schema"); return; } let id = ""; update(d => { id = startSession(d, nt.day); }); setTimeout(() => openWorkout(id || `${data.me}_${today()}_${nt.day}`), 0); }}
-            className="absolute -top-5 h-16 w-16 rounded-full bg-accent text-accent-ink grid place-items-center shadow-[0_10px_24px_-10px_var(--accent)] ring-4 ring-[var(--surface)] active:scale-95 transition" aria-label={live ? "Training verderzetten" : "Training starten"}>
+            className="absolute left-1/2 -translate-x-1/2 -top-7 h-16 w-16 rounded-full bg-accent text-accent-ink grid place-items-center shadow-[0_10px_24px_-10px_var(--accent)] ring-4 ring-[var(--surface)] active:scale-95 transition" aria-label={live ? "Training verderzetten" : "Training starten"}>
             <Dumbbell size={26} strokeWidth={2.3} /></button>
-            <span className="text-[12px] font-semibold text-mute mt-11">Training</span></div>; }
+            <span className="h-8" aria-hidden="true" /><span className="text-[12px] font-semibold text-mute">Training</span></div>; }
         const [k, n, I] = x; const on = tab === k && !page;
         return <button key={k} onClick={() => { setPage(null); setTab(k); window.scrollTo(0, 0); }} aria-current={on ? "page" : undefined}
         className={cn("relative h-16 grid place-items-center content-center gap-1 text-[12px] font-semibold", on ? "text-accent" : "text-mute")}>

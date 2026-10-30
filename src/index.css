@@ -60,6 +60,7 @@ body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-a
 .label { font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--mute); }
 h1, h2, h3 { text-wrap: balance; }
 button { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), summary, [role=button], [role=switch], [role=radio], label[for] { cursor: pointer; }
 :focus-visible { outline: 2.5px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
 .gutter { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .no-scrollbar::-webkit-scrollbar { display: none; } .no-scrollbar { scrollbar-width: none; }

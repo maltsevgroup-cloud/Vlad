@@ -5,7 +5,9 @@ const srv=require('./serve.cjs')(8981);
   await p.goto('http://localhost:8981/'); await p.waitForTimeout(800); const tg=sc[0];
   await p.screenshot({path:`h_${tg}_1.png`,fullPage:true});
   if(sc==='light'){
-   T(await p.locator('section[aria-label=Streak] button[aria-label^="Streak:"]').count()===1,'streakblok');
+   T(await p.locator('header button[aria-label^="Streak:"]').count()===1,'streak bovenaan naast profiel');
+   T(await p.evaluate(()=>{const t=document.querySelector('main button[aria-expanded]'),s=document.querySelector('section[aria-label=Streak]');return !!(t.compareDocumentPosition(s)&Node.DOCUMENT_POSITION_FOLLOWING)}),'training staat boven de week');
+   T(await p.locator('header >> text=GYMMAAT').count()===0,'geen logo bovenaan');
    T(await p.locator('section[aria-label=Streak] [aria-label^="Deze week"] button').count()===7,'weekstrook in het streakblok');
    T(await p.locator('main >> text=/Records|Gewicht/').count()===0,'geen records en gewicht op Home');
    T(await p.locator('main >> text=/\\d kg/').count()===0,'geen gewichten op Home');
@@ -25,10 +27,10 @@ const srv=require('./serve.cjs')(8981);
    const fut=await p.evaluate(()=>{const b=[...document.querySelectorAll('[aria-label^="Deze week"] button')].reverse().find(x=>/gepland|rustdag/.test(x.getAttribute('aria-label')));b.click();return b.getAttribute('aria-label')}); await p.waitForTimeout(250);
    T(await p.locator('[role=dialog]').count()===1,'komende dag opent: '+fut); await p.screenshot({path:'h_l_3_toekomst.png'}); await p.keyboard.press('Escape');
    // streak pauze
-   await p.click('section[aria-label=Streak] button[aria-label^="Streak:"]'); await p.waitForTimeout(200); await p.screenshot({path:'h_l_4_streak.png'});
+   await p.click('header button[aria-label^="Streak:"]'); await p.waitForTimeout(200); await p.screenshot({path:'h_l_4_streak.png'});
    await p.click('button:has-text("Ik ben ziek voor de training")'); await p.waitForTimeout(250); T(await p.locator('text=Ziek gemeld. Je reeks blijft staan').count()===1,'ziek gemeld voor één training');
    T(await p.evaluate(()=>{const d=JSON.parse(localStorage.getItem('gymmaat-nieuw.demo'));return d.pauses.length===1&&d.pauses[0].from===d.pauses[0].to}),'ziekmelding geldt voor één datum');
-   await p.click('section[aria-label=Streak] button[aria-label^="Streak:"]'); await p.click('button:has-text("Toch niet ziek")'); await p.waitForTimeout(200); T(await p.locator('text=Ziek gemeld. Je reeks blijft staan').count()===0,'ziekmelding ingetrokken');
+   await p.click('header button[aria-label^="Streak:"]'); await p.click('button:has-text("Toch niet ziek")'); await p.waitForTimeout(200); T(await p.locator('text=Ziek gemeld. Je reeks blijft staan').count()===0,'ziekmelding ingetrokken');
    // badge
    await p.locator('section[aria-label=Badges] button').nth(1).click(); await p.waitForTimeout(200); T(await p.locator('[role=dialog] ol[aria-label=Levels] li').count()===4,'badge toont 4 levels'); await p.screenshot({path:'h_l_5_badge.png'}); await p.keyboard.press('Escape');
    await p.click('section[aria-label=Badges] button:has-text("Alle")'); await p.waitForTimeout(300); T(await p.locator('[role=region][aria-label=Badges]').count()===1,'badgepagina'); await p.screenshot({path:'h_l_6_badges.png',fullPage:false});

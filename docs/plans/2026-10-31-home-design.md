@@ -1,33 +1,18 @@
 # Home en richting – ontwerp (31 oktober 2026)
 
-Uitkomst van de brainstorm. Nog niet gebouwd.
+Uitkomst van de brainstorm. Home is als voorbeeld gebouwd.
 
 ## Richting
-- Gymmaat gaat richting Duolingo in hoe de app werkt: een gewoonte leuk maken met beloning en een mascotte.
+- Gymmaat gaat richting Duolingo in hoe de app werkt: een gewoonte leuk maken met beloning.
 - Volgorde: eerst A (trainen), B (samen) en D (volhouden). C (vooruitgang) komt later als rapport na elke 6 trainingen: wat goed ging, wat beter kan.
 - De structuur van de app blijft. Wat beter moet is het design en het thema.
 
-## Mascotte: de coach
-- Een pomeranian met rood coachshirt, fluitje en klembord (eigen illustraties).
-- Alleen buiten en na de training, nooit tijdens.
-- Poses per moment:
-  - Zwaaien met pet en klembord: begroeting op Home
-  - Grrr met halter: net voor het starten
-  - Kop op met hartje: Noor traint of stuurt een aanmoediging
-  - High five: samen-missie gehaald of allebei getraind vandaag
-  - Yes met medaille en confetti: feestscherm en record
-  - Kom op met megafoon: streak in gevaar
-  - Fluitje: herinnering
-  - Moe (oeff): lang niet getraind, streak verloren
-  - Rust met bidon op de mat: rustdag en rustweek
-  - Stretchen: leeg moment, geen schema
-  - Stopwatch: training gepland op een tijdstip
-- Nog te maken: ziek, rapport na 6 trainingen, welkom.
-- Poses zonder tekst, op een transparante achtergrond. De tekst staat in de app, in het Nederlands.
+## Mascotte
+- Geschrapt (31 oktober): geen mascotte in de app.
 
 ## Overgenomen van Duolingo
 1. Pad met blokken van 6 trainingen, met een rapport per blok
-2. Coach reageert buiten de training
+2. ~~Coach reageert buiten de training~~ (geschrapt)
 3. Feestmoment na de training
 4. (bestaat al) Streak beschermen met rustweek en ziekmelden
 5. Samen-missies
@@ -38,40 +23,39 @@ Uitkomst van de brainstorm. Nog niet gebouwd.
 - De gewichtenstijl (schijfkleuren, stang met schijven) blijft, alleen in de training.
 - Je doet één set per keer met rust ertussen.
 
-## Home
+## Home (bijgewerkt na het voorbeeld)
 ```
-GYMMAAT        (Noor)● 3/6        (jij)
+(S) [vlam 3]                   (Noor)● 3/6
 Zaterdag 31 oktober
 GOEDEMIDDAG, SAM
-
-[ streakblok: coach, vlam, "3 trainingen op rij",
-  motiverende zin, weekstrook ma t/m zo ]
 
 [ Training van vandaag
   DUWEN EN BENEN
   6 oefeningen  ⌄   (dicht, open op verzoek)
   Start training ]
 
+[ 3 trainingen op rij      deze week 1 van 3
+  motiverende zin
+  ma t/m zo met vlammen ]
+
 Badges bijna binnen (3)               Alle
 ```
 
-- **Kopregel:** Noor tussen het logo en je eigen foto.
-  - Noor traint: groen bolletje en gedane oefeningen van het totaal (3/6). Bij cardio of loopband alleen een timer.
-  - Noor traint niet: rood bolletje, verder niets.
-  - Tikken op Noor opent Samen.
-- **Streakblok:** groot, boven de training. De coach staat erin, met een pose die past bij de stand. De weekstrook zit in het blok.
-- **Training van vandaag:** geen gewichten, sets of herhalingen. De oefeningen zitten in een uitklapmenu dat standaard dicht is.
-- **Badges:** nog één keer op Home, als strook met de 3 badges die het dichtst bij zijn.
-- **Weg van Home:**
-  - de zes tegels;
-  - de losse weekstrook;
-  - records (blijven in Voortgang en komen terug in het rapport);
-  - de dubbele badgetegel;
-  - lichaamsgewicht (alleen nog in Voortgang).
+- **Kopregel:**
+  - Geen logo.
+  - Links je profielfoto met de streak ernaast (vlam en getal; tikken opent het streakvenster).
+  - Rechts Noor:
+    - traint: groen bolletje en oefeningen gedaan van het totaal, of een timer bij cardio;
+    - traint niet: rood bolletje.
+- **Training van vandaag** staat bovenaan: geen gewichten, sets of herhalingen; de oefeningen zitten in een uitklapmenu dat standaard dicht is.
+- **Weekblok** onder de training: reeks, motiverende zin en de 7 dagen met een vlam op elke trainingsdag.
+- **Vlamkleur** oranje (token `--flame`), omdat geel te weinig contrast heeft.
+- **Badges:** de 3 die het dichtst bij zijn.
+- **Weg van Home:** de tegels, records, lichaamsgewicht en het logo.
 
 ## Nog open
 - Kleuren van het thema:
-  - A. naar de coach: warm oranje en rood; je maat krijgt een andere kleur
+  - A. warm (oranje en rood); je maat krijgt een andere kleur
   - B. blauw blijft
   - C. wit en rustig
 - De zwevende chatknop: is die nog nodig nu Noor in de kopregel staat?

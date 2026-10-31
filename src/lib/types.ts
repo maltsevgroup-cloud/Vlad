@@ -28,7 +28,7 @@ export interface Profile {
 export interface Share { live: boolean; trainingen: boolean; streak: boolean; badges: boolean; records: boolean; schema: boolean }
 export const SHARE_DEFAULT: Share = { live: true, trainingen: true, streak: true, badges: true, records: true, schema: true };
 export interface Msg { id: string; from: string; to: string; text: string; at: number }
-export interface Live { uid: string; sessionId: string; title: string; exName: string; exIdx: number; exTotal: number; setsDone: number; setsTotal: number; startedAt: number; updatedAt: number }
+export interface Live { uid: string; sessionId: string; title: string; exName: string; exIdx: number; exTotal: number; exKind?: Kind; exSince?: number; setsDone: number; setsTotal: number; startedAt: number; updatedAt: number }
 
 export interface Data {
   me: string;

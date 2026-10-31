@@ -20,7 +20,7 @@ export function syncLive(d: Data, sid: string) {
   if (s.finishedAt) { delete d.live[s.uid]; return; }
   const total = s.items.reduce((a, i) => a + i.sets.length, 0), done = s.items.reduce((a, i) => a + i.sets.filter(z => z.done).length, 0);
   let idx = s.items.findIndex(i => i.sets.some(z => !z.done)); if (idx < 0) idx = s.items.length - 1;
-  d.live[s.uid] = { uid: s.uid, sessionId: sid, title: s.title, exName: exById(d, s.items[idx].exId).name, exIdx: idx, exTotal: s.items.length, setsDone: done, setsTotal: total, startedAt: s.startedAt, updatedAt: Date.now() };
+  d.live[s.uid] = { uid: s.uid, sessionId: sid, title: s.title, exName: exById(d, s.items[idx].exId).name, exKind: exById(d, s.items[idx].exId).kind, exSince: Math.max(s.startedAt, ...s.items.flatMap(i => i.sets.filter(z => z.done && z.at).map(z => z.at!))), exIdx: idx, exTotal: s.items.length, setsDone: done, setsTotal: total, startedAt: s.startedAt, updatedAt: Date.now() };
 }
 export function sendMsg(d: Data, text: string) {
   if (!d.mate || !text.trim()) return; const m: Msg = { id: "m" + Date.now() + Math.random().toString(36).slice(2, 5), from: d.me, to: d.mate, text: text.trim().slice(0, 200), at: Date.now() }; d.msgs.push(m);

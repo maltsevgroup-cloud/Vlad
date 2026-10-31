@@ -11,7 +11,6 @@ import { startSession } from "./actions";
 import { Avatar, Btn, Card } from "./ui";
 import { Logo } from "./Logo";
 import { ArrowUpRight, ArrowDownRight, ArrowRight, Play, Check, Flame, ChevronDown } from "lucide-react";
-import coachZwaai from "@/assets/coach/zwaai.webp";
 import { cn } from "@/lib/utils";
 
 export function Trend({ t }: { t: string }) {
@@ -56,9 +55,9 @@ export function Home() {
 
     <section aria-label="Streak" className="bg-surface rounded-[22px] p-4 pb-3">
       <button onClick={() => setStk(true)} className="w-full flex items-center gap-3 text-left" aria-label={`Streak: ${st.count} trainingen op rij${st.paused ? ", gepauzeerd" : ""}. ${line}`}>
-        <img src={coachZwaai} alt="" width={96} height={96} className="h-24 w-24 object-contain shrink-0 -ml-1" />
+        <span className={cn("h-20 w-20 rounded-full grid place-items-center shrink-0", st.count && !st.paused ? "bg-[color-mix(in_srgb,var(--plate-15)_22%,transparent)]" : "bg-sunk")} aria-hidden="true"><Flame size={44} strokeWidth={2.2} className={st.count && !st.paused ? "text-[var(--plate-15)]" : "text-mute"} fill="currentColor" /></span>
         <span className="grow min-w-0">
-          <span className="flex items-center gap-1.5"><Flame size={30} strokeWidth={2.4} className={st.count && !st.paused ? "text-[var(--plate-15)]" : "text-mute"} fill="currentColor" aria-hidden="true" />
+          <span className="flex items-center gap-1.5">
             <b className={cn("display text-[44px] font-bold leading-none num", (st.paused || !st.count) && "text-mute")}>{st.count}</b></span>
           <span className="block text-[14px] font-semibold -mt-0.5">{st.count === 1 ? "training op rij" : "trainingen op rij"}</span>
           <span className={cn("block text-[13px] mt-1 leading-snug", st.atRisk && !doneToday ? "text-warn font-semibold" : "text-mute")}>{line}</span>

@@ -45,7 +45,7 @@ export function BadgeRow() {
   const { data: d, setPage } = useApp(); const [open, setOpen] = useState<BadgeState | null>(null);
   if (!d) return null;
   const st = badgeStates(d, d.me), near = st.filter(s => s.next !== null && !(s.b.secret && !s.level)).sort((a, b) => b.progress - a.progress).slice(0, 3);
-  return <section aria-label="Badges">
+  return <section aria-label="Badges" className="bg-surface rounded-[22px] p-4 pb-3">
     <div className="flex items-baseline justify-between mb-2"><h2 className="text-[15px] font-semibold">Badges bijna binnen</h2><button className="text-[13px] font-semibold text-accent h-11 -my-3" onClick={() => setPage("badges")}>Alle {st.filter(s => s.level).length}/{st.length}</button></div>
     <div className="grid grid-cols-3 gap-3">
       {near.map(s => <button key={s.b.id} onClick={() => setOpen(s)} className="grid justify-items-center content-start gap-1.5 text-center" aria-label={`${label(s)}, ${sub(s)}`}>
